@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Images in Folder2</title>
+    <!-- <title>Images in Folder2</title> -->
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <h1>Images in Folder2</h1>
+    <h1 id="pageTitle">image folder</h1>  <!-- Assign an ID to the header -->
     <ul>
         <li><a href="../image_hub.html">...</a></li>
     </ul>
@@ -22,5 +22,17 @@
 
         <!-- Repeat for other images -->
     </div>
+
+    <script>
+        // JavaScript to dynamically set the document title and header based on the filename
+        document.addEventListener("DOMContentLoaded", function() {
+            var path = window.location.pathname;
+            var page = path.split("/").pop();  // Gets the filename from the URL
+            var pageTitle = page.split('.')[0]; // Removes the file extension
+            
+            document.title = "Images in " + pageTitle; // Dynamically set the title of the document
+            document.getElementById("pageTitle").textContent = "Images in " + pageTitle; // Dynamically set the header text
+        });
+    </script>
 </body>
 </html>
