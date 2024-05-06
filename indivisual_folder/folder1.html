@@ -10,28 +10,51 @@
         <li><a href="../image_hub.html">...</a></li>
     </ul>
     <div id="gallery">
-        <div class="image-item">
-            <img src="../images/folder1/IMG_3106.JPG" alt="IMG_3106.JPG" class="thumbnail">
-            <a href="../images/folder1/IMG_3106.JPG" target="_blank">IMG_3106.JPG</a>
+        <!-- Notice the data attribute in each div that stores the image filename -->
+        <div class="image-item" data-image="IMG_3106.JPG">
+            <img alt="IMG_3106.JPG" class="thumbnail">
+            <a target="_blank">IMG_3106.JPG</a>
         </div>
 
-        <div class="image-item">
-            <img src="../images/folder1/IMG_3108.JPG" alt="IMG_3108.JPG" class="thumbnail">
-            <a href="../images/folder1/IMG_3108.JPG" target="_blank">IMG_3108.JPG</a>
+        <div class="image-item" data-image="IMG_3108.JPG">
+            <img alt="IMG_3108.JPG" class="thumbnail">
+            <a target="_blank">IMG_3108.JPG</a>
+        </div>
+
+        <div class="image-item" data-image="IMG_3110.JPG">
+            <img alt="IMG_3110.JPG" class="thumbnail">
+            <a target="_blank">IMG_3110.JPG</a>
+        </div>
+        
+        <div class="image-item" data-image="IMG_3111.JPG">
+            <img alt="IMG_3112.JPG" class="thumbnail">
+            <a target="_blank">IMG_3112.JPG</a>
         </div>
 
         <!-- Repeat for other images -->
     </div>
 
     <script>
-        // JavaScript to dynamically set the document title and header based on the filename
         document.addEventListener("DOMContentLoaded", function() {
+            var baseImageUrl = "../images/folder1/"; // Base URL stored here
+            var gallery = document.getElementById("gallery");
+            var imageItems = gallery.getElementsByClassName("image-item");
+
+            for (var i = 0; i < imageItems.length; i++) {
+                var imageName = imageItems[i].getAttribute('data-image');
+                var imgElement = imageItems[i].getElementsByTagName('img')[0];
+                var anchorElement = imageItems[i].getElementsByTagName('a')[0];
+                
+                imgElement.src = baseImageUrl + imageName;
+                anchorElement.href = baseImageUrl + imageName;
+            }
+
             var path = window.location.pathname;
-            var page = path.split("/").pop();  // Gets the filename from the URL
-            var pageTitle = page.split('.')[0]; // Removes the file extension
-            
-            document.title = "Images in " + pageTitle; // Dynamically set the title of the document
-            document.getElementById("pageTitle").textContent = "Images in " + pageTitle; // Dynamically set the header text
+            var page = path.split("/").pop();
+            var pageTitle = page.split('.')[0];
+
+            document.title = "Images in " + pageTitle;
+            document.getElementById("pageTitle").textContent = "Images in " + pageTitle;
         });
     </script>
 </body>
