@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- <title>Images in Folder1</title> -->
+    <!-- Link to external CSS for styling the webpage -->
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <h1 id="pageTitle">image folder</h1>  <!-- Assign an ID to the header -->
+    <!-- Header displaying the name of the current image folder -->
+    <h1 id="pageTitle">image folder</h1>
     <ul>
+        <!-- Link to navigate back to the main image hub page -->
         <li><a href="../image_hub.html">...</a></li>
     </ul>
+    <!-- Gallery container for displaying images -->
     <div id="gallery">
-        <!-- Notice the data attribute in each div that stores the image filename -->
-        <div class="image-item" data-image="IMG_3106.JPG">
-            <img alt="IMG_3106.JPG" class="thumbnail">
-            <a target="_blank">IMG_3106.JPG</a>
-        </div>
-
-        <div class="image-item" data-image="IMG_3108.JPG">
-            <img alt="IMG_3108.JPG" class="thumbnail">
-            <a target="_blank">IMG_3108.JPG</a>
-        </div>
-
-        <div class="image-item" data-image="IMG_3110.JPG">
-            <img alt="IMG_3110.JPG" class="thumbnail">
-            <a target="_blank">IMG_3110.JPG</a>
-        </div>
-        
-        <div class="image-item" data-image="IMG_3111.JPG">
-            <img alt="IMG_3112.JPG" class="thumbnail">
-            <a target="_blank">IMG_3112.JPG</a>
-        </div>
-
-        <!-- Repeat for other images -->
+        <!-- Each div represents an image item and contains only the filename in data-image attribute -->
+        <div class="image-item" data-image="IMG_3106.JPG"></div>
+        <div class="image-item" data-image="IMG_3108.JPG"></div>
+        <div class="image-item" data-image="IMG_3110.JPG"></div>
+        <div class="image-item" data-image="IMG_3111.JPG"></div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var baseImageUrl = "../images/folder1/"; // Base URL stored here
+            // Base URL for images, used to form the full URL path
+            var baseImageUrl = "../images/folder1/";
+            // Getting the gallery div where images will be displayed
             var gallery = document.getElementById("gallery");
+            // Collecting all div elements that represent individual image items
             var imageItems = gallery.getElementsByClassName("image-item");
 
+            // Looping through each image item to set up its content
             for (var i = 0; i < imageItems.length; i++) {
+                // Getting the filename from the data-image attribute
                 var imageName = imageItems[i].getAttribute('data-image');
-                var imgElement = imageItems[i].getElementsByTagName('img')[0];
-                var anchorElement = imageItems[i].getElementsByTagName('a')[0];
                 
-                imgElement.src = baseImageUrl + imageName;
-                anchorElement.href = baseImageUrl + imageName;
+                // Creating an img element and setting its properties
+                var imgElement = document.createElement('img');
+                imgElement.alt = imageName; // Alternative text for the image
+                imgElement.src = baseImageUrl + imageName; // Source URL of the image
+                imgElement.className = 'thumbnail'; // CSS class for styling
+                
+                // Creating an anchor element for the image
+                var anchorElement = document.createElement('a');
+                anchorElement.href = baseImageUrl + imageName; // URL to open the image in a new tab
+                anchorElement.target = '_blank'; // Ensures the link opens in a new tab
+                anchorElement.textContent = imageName; // Text content of the link
+                
+                // Appending the img and a elements to the parent div
+                imageItems[i].appendChild(imgElement);
+                imageItems[i].appendChild(anchorElement);
             }
 
-            var path = window.location.pathname;
-            var page = path.split("/").pop();
-            var pageTitle = page.split('.')[0];
-
+            // JavaScript for setting the title of the page based on the URL
+            var path = window.location.pathname; // Full path of the current page
+            var page = path.split("/").pop(); // Extracts the filename from the path
+            var pageTitle = page.split('.')[0]; // Removes file extension to use as the title
+            
+            // Setting the document title and header text dynamically based on the filename
             document.title = "Images in " + pageTitle;
             document.getElementById("pageTitle").textContent = "Images in " + pageTitle;
         });
