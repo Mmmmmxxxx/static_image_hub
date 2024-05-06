@@ -6,10 +6,32 @@
 </head>
 <body>
     <h1>Image Hub</h1>
-    <ul>
+    <ul id="folderList">
         <li><a href="index.html">...</a></li> <!-- Link back to the previous level -->
-        <li><a href="indivisual_folder\folder1.html">folder1</a></li>
-        <li><a href="indivisual_folder\folder2.html">folder2</a></li>
+        <!-- Placeholder for dynamically created folder links -->
     </ul>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Array containing folder names which would be dynamically fetched or predefined
+            var folders = ['folder1', 'folder2'];
+
+            // Base path for the folder links
+            var basePath = "indivisual_folder/";
+
+            // Getting the unordered list element
+            var folderList = document.getElementById("folderList");
+
+            // Looping through each folder name to create a list item and link
+            folders.forEach(function(folder) {
+                var listItem = document.createElement('li');
+                var link = document.createElement('a');
+                link.href = basePath + folder + ".html"; // Setting the href attribute dynamically
+                link.textContent = folder; // Setting the link text to the folder name
+                listItem.appendChild(link); // Adding the link to the list item
+                folderList.appendChild(listItem); // Adding the list item to the unordered list
+            });
+        });
+    </script>
 </body>
 </html>
